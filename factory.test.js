@@ -18,9 +18,9 @@ describe('Factory', () => {
     });
 
     it('calls functions', () => {
-        Factory.define('func').id(() => 3);
+        Factory.define('func').id(({ key }) => `${key}_test`);
 
-        expect(Factory.build('func')).toEqual({id: 3});
+        expect(Factory.build('func')).toEqual({id: 'id_test'});
     });
 
     it('increments sequences', () => {
@@ -35,7 +35,11 @@ describe('Factory', () => {
     });
 
     it('builds references', () => {
-        Factory.define('child').one(1)
+        Factory.define('child')
+            .one(1)
+            .ima(({key}) => key)
+            .parent_id(({parent}) => parent.id)
+
         Factory.define('many').bar('baz')
         Factory.define('parent')
             .id(Factory.sequence)
@@ -45,7 +49,7 @@ describe('Factory', () => {
 
         expect(Factory.build('parent')).toEqual({
             id: 1, foo: "bar",
-            child: {one: 1},
+            child: {one: 1, parent_id: 1, ima: 'child'},
             ary: [{bar: "baz"}, {bar: "baz"}]
         });
     });

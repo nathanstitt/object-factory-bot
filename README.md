@@ -20,10 +20,10 @@ Factory.define('car')
     .wheels(Factory.reference('wheel', 4));
 
 const car = Factory.build('car');
-
-console.log(car)
 ```
 
+
+`car` will be a plain object looking something like:
 ```
     { id: 1,
       owner: 'Jillian West',

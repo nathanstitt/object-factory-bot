@@ -3,13 +3,13 @@ class Reference {
         this.name = name;
         this.count = count;
     }
-    build(factory) {
+    build(factory, ctx) {
         if (1 === this.count) {
-            return factory.build(this.name);
+            return factory.build(this.name, ctx);
         } else {
             return Array.from(
                 new Array(this.count),
-                (val,index) => factory.build(this.name),
+                (val,index) => factory.build(this.name, ctx),
             );
         }
     }

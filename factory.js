@@ -27,15 +27,15 @@ const Factory = {
         return p
     },
 
-    build(name) {
+    build(name, ctx = {}) {
         const o = Object.assign({}, FACTORIES.get(name));
         Object.keys(o).map(function(key, index) {
             if ('function' === typeof o[key]) {
-                o[key] = o[key](o);
+                o[key] = o[key](Object.assign({object: o, key }, ctx));
             } else if (Sequences.identifier === o[key]) {
                 o[key] = Sequences.nextVal(name, key);
             } else if (o[key] instanceof Reference) {
-                o[key] = o[key].build(Factory);
+                o[key] = o[key].build(Factory, { parent: o, key });
             }
         });
         return o;
