@@ -1,0 +1,16 @@
+{
+  "name": "object-factory-bot",
+  "version": "0.0.1",
+  "description": "Building objects using proxies",
+  "main": "factory.js",
+  "repository": "https://github.com/nathanstitt/object-factory-bot",
+  "author": "Nathan Stitt",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "jest": "^22.3.0"
+  },
+  "scripts": {
+    "test": "$(npm bin)/jest"
+  }
+}
