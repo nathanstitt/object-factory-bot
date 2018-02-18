@@ -1,18 +1,18 @@
 class Reference {
 
-    constructor(name, count = 1) {
+    constructor(name, options = {}) {
         this.name = name;
-        this.count = count;
+        this.options = options;
     }
 
     create(factory, ctx) {
         const child = factory.create(this.name, ctx);
-        if (1 === this.count) {
+        if (undefined === this.options.count) {
             return child;
         }
         const ary = [child];
         ctx.parent[ctx.parentKey] = ary;
-        for (let i = 1; i < this.count; i += 1) {
+        for (let i = 1; i < this.options.count; i += 1) {
             ary[i] = factory.create(this.name, ctx);
         }
         return ary;

@@ -1,4 +1,4 @@
-## A very simple object factory
+## A simple object factory
 
 [![Build Status](https://travis-ci.org/nathanstitt/object-factory-bot.svg?branch=master)](https://travis-ci.org/nathanstitt/object-factory-bot)
 
@@ -21,7 +21,7 @@ Factory.define('car')
     .id(Factory.sequence)
     .owner(() => faker.name.findName())
     .manufacturer(Factory.reference('manufacturer'))
-    .wheels(Factory.reference('wheel', 4));
+    .wheels(Factory.reference('wheel', { count: 4 }));
 
 const car = Factory.create('car');
 ```

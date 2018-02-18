@@ -7,8 +7,8 @@ const Factory = {
 
     get sequence() { return Sequences.identifier; },
 
-    reference(name, count) {
-        return new Reference(name, count);
+    reference(name, options) {
+        return new Reference(name, options);
     },
 
     define(factoryName) {

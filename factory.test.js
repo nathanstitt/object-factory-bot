@@ -18,8 +18,8 @@ describe('Factory', () => {
     });
 
     it('calls functions', () => {
-        Factory.define('func').id(({ key }) => `${key}_test`);
-        expect(Factory.create('func')).toEqual({ id: 'id_test' });
+        Factory.define('func').id(({ key, size }) => `${key}_${size}_test`);
+        expect(Factory.create('func', { size: 8 })).toEqual({ id: 'id_8_test' });
     });
 
     it('increments sequences', () => {
@@ -41,13 +41,15 @@ describe('Factory', () => {
 
         Factory.define('many')
             .bar('baz')
-            .same(({ parent, parentKey }) => (parent[parentKey] ? parent[parentKey][0].same : 'firstValue'));
+            .same(({ parent, parentKey }) =>
+                (parent[parentKey] ? parent[parentKey][0].same : 'firstValue')
+            );
 
         Factory.define('parent')
             .id(Factory.sequence)
             .foo('bar')
             .child(Factory.reference('child'))
-            .ary(Factory.reference('many', 2));
+            .ary(Factory.reference('many', { count: 2 }));
 
         expect(Factory.create('parent')).toEqual({
             id: 1,
