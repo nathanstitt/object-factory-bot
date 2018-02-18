@@ -12,9 +12,8 @@ const Factory = {
     },
 
     define(factoryName) {
-        let proxy;
         const factory = getFactory(factoryName);
-        proxy = new Proxy(factory, {
+        const proxy = new Proxy(factory, {
             get(target, propertyName) {
                 return propertyFactory(Factory, factoryName, proxy, target, propertyName);
             },
