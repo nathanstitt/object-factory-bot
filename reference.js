@@ -1,4 +1,5 @@
 class Reference {
+
     constructor(name, count = 1) {
         this.name = name;
         this.count = count;
@@ -6,13 +7,13 @@ class Reference {
     build(factory, ctx) {
         if (1 === this.count) {
             return factory.build(this.name, ctx);
-        } else {
-            return Array.from(
-                new Array(this.count),
-                (val,index) => factory.build(this.name, ctx),
-            );
         }
+        return Array.from(
+            new Array(this.count),
+            () => factory.build(this.name, ctx),
+        );
     }
+
 }
 
 module.exports = Reference;

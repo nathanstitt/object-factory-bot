@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "eslint-config-argosity": "^1.6.0",
     "jest": "^22.3.0"
   },
   "scripts": {

@@ -17,10 +17,10 @@ module.exports = {
             map = {};
             SEQUENCES.set(name, map);
         }
-        let val = map[key] || ( map[key] = 0 );
+        let val = map[key] || (map[key] = 0);
         val += 1;
         map[key] = val;
         return val;
-    }
+    },
 
-}
+};

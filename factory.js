@@ -1,5 +1,6 @@
 const Sequences = require('./sequences');
 const Reference = require('./reference');
+
 const FACTORIES = new Map();
 
 const Factory = {
@@ -10,30 +11,30 @@ const Factory = {
         return new Reference(name, count);
     },
 
-    define(name) {
+    define(factoryName) {
         let p;
         const vals = Object.create(null);
-        FACTORIES.set(name, vals);
+        FACTORIES.set(factoryName, vals);
 
         const handler = {
-            get: function(target, name, b) {
+            get(target, propertyName) {
                 return (val) => {
-                    target[name] = val;
-                    return p
-                }
-            }
+                    target[propertyName] = val;
+                    return p;
+                };
+            },
         };
         p = new Proxy(vals, handler);
-        return p
+        return p;
     },
 
-    build(name, ctx = {}) {
-        const o = Object.assign({}, FACTORIES.get(name));
-        Object.keys(o).map(function(key, index) {
+    build(factoryName, ctx = {}) {
+        const o = Object.assign({}, FACTORIES.get(factoryName));
+        Object.keys(o).forEach((key) => {
             if ('function' === typeof o[key]) {
-                o[key] = o[key](Object.assign({object: o, key }, ctx));
+                o[key] = o[key](Object.assign({ object: o, key }, ctx));
             } else if (Sequences.identifier === o[key]) {
-                o[key] = Sequences.nextVal(name, key);
+                o[key] = Sequences.nextVal(factoryName, key);
             } else if (o[key] instanceof Reference) {
                 o[key] = o[key].build(Factory, { parent: o, key });
             }
@@ -41,6 +42,6 @@ const Factory = {
         return o;
     },
 
-}
+};
 
 module.exports = Factory;
