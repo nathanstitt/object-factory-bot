@@ -1,5 +1,6 @@
-## A very simple object factory using proxies
+## A very simple object factory
 
+Uses Proxy objects to create a DSL for object construction.  Requires Proxy support, which is supported by modern browsers and Node 6 and above.  https://caniuse.com/#search=Proxy http://node.green/#ES2015-built-ins-Proxy
 
 ```javascript
 
