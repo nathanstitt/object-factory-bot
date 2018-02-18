@@ -22,7 +22,7 @@ const Factory = {
         return proxy;
     },
 
-    build(factoryName, ctx = {}) {
+    create(factoryName, ctx = {}) {
         const object = {};
         const context = Object.assign({ object }, ctx);
         const factory = getFactory(factoryName);

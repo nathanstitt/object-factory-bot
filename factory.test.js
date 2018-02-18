@@ -13,13 +13,13 @@ describe('Factory', () => {
             .bar('baz')
             .foo(42)
             .byValue(i);
-        expect(Factory.build('test').byValue).toBe(i);
-        expect(Factory.build('test')).toEqual({ bar: 'baz', foo: 42, byValue: i });
+        expect(Factory.create('test').byValue).toBe(i);
+        expect(Factory.create('test')).toEqual({ bar: 'baz', foo: 42, byValue: i });
     });
 
     it('calls functions', () => {
         Factory.define('func').id(({ key }) => `${key}_test`);
-        expect(Factory.build('func')).toEqual({ id: 'id_test' });
+        expect(Factory.create('func')).toEqual({ id: 'id_test' });
     });
 
     it('increments sequences', () => {
@@ -28,12 +28,12 @@ describe('Factory', () => {
             .bar('t')
             .foo(Factory.sequence);
 
-        expect(Factory.build('seq')).toEqual({ id: 1, bar: 't', foo: 1 });
-        expect(Factory.build('seq')).toEqual({ id: 2, bar: 't', foo: 2 });
-        expect(Factory.build('seq')).toEqual({ id: 3, bar: 't', foo: 3 });
+        expect(Factory.create('seq')).toEqual({ id: 1, bar: 't', foo: 1 });
+        expect(Factory.create('seq')).toEqual({ id: 2, bar: 't', foo: 2 });
+        expect(Factory.create('seq')).toEqual({ id: 3, bar: 't', foo: 3 });
     });
 
-    it('builds references', () => {
+    it('creates references', () => {
         Factory.define('child')
             .one(1)
             .ima(({ parentKey }) => parentKey)
@@ -51,7 +51,7 @@ describe('Factory', () => {
             .child(Factory.reference('child'))
             .ary(Factory.reference('many', 2));
 
-        expect(Factory.build('parent')).toEqual({
+        expect(Factory.create('parent')).toEqual({
             id: 1,
             foo: 'bar',
             child: { one: 1, parent_id: 1, ima: 'child' },

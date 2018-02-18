@@ -19,7 +19,7 @@ Factory.define('car')
     .manufacturer(Factory.reference('manufacturer'))
     .wheels(Factory.reference('wheel', 4));
 
-const car = Factory.build('car');
+const car = Factory.create('car');
 ```
 
 
@@ -42,6 +42,6 @@ const car = Factory.build('car');
  * [FactoryGirl](https://github.com/aexmachina/factory-girl)
 
 
-Both of the above seem to be fairly complex and oriented towards building classes.
+Both of the above seem to be fairly complex and oriented towards createing classes.
 
-For my purposes I just wanted a way to build plain objects
+For my purposes I just wanted a way to create plain objects

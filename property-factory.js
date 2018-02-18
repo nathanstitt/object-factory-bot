@@ -1,20 +1,20 @@
 const Sequences = require('./sequences');
 const Reference = require('./reference');
 
-const buildPropertyFactory = (Factory, factoryName, proxy, target, propertyName) => (providedValue) => {
-    let propertyFactory;
+const propertyFactory = (Factory, factoryName, proxy, target, propertyName) => (providedValue) => {
+    let factory;
     if ('function' === typeof providedValue) {
-        propertyFactory = providedValue;
+        factory = providedValue;
     } else if (Sequences.identifier === providedValue) {
-        propertyFactory = () => Sequences.nextVal(factoryName, propertyName);
+        factory = () => Sequences.nextVal(factoryName, propertyName);
     } else if (providedValue instanceof Reference) {
-        propertyFactory = ({ object }) =>
-            providedValue.build(Factory, { parent: object, parentKey: propertyName });
+        factory = ({ object }) =>
+            providedValue.create(Factory, { parent: object, parentKey: propertyName });
     } else {
-        propertyFactory = () => providedValue;
+        factory = () => providedValue;
     }
-    target[propertyName] = propertyFactory;
+    target[propertyName] = factory;
     return proxy;
 };
 
-module.exports = buildPropertyFactory;
+module.exports = propertyFactory;
