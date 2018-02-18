@@ -1,7 +1,7 @@
 const Sequences = require('./sequences');
 const Reference = require('./reference');
-
-const FACTORIES = new Map();
+const getFactory = require('./get-factory');
+const propertyFactory = require('./property-factory');
 
 const Factory = {
 
@@ -12,34 +12,25 @@ const Factory = {
     },
 
     define(factoryName) {
-        let p;
-        const vals = Object.create(null);
-        FACTORIES.set(factoryName, vals);
-
-        const handler = {
+        let proxy;
+        const factory = getFactory(factoryName);
+        proxy = new Proxy(factory, {
             get(target, propertyName) {
-                return (val) => {
-                    target[propertyName] = val;
-                    return p;
-                };
+                return propertyFactory(Factory, factoryName, proxy, target, propertyName);
             },
-        };
-        p = new Proxy(vals, handler);
-        return p;
+        });
+        return proxy;
     },
 
     build(factoryName, ctx = {}) {
-        const o = Object.assign({}, FACTORIES.get(factoryName));
-        Object.keys(o).forEach((key) => {
-            if ('function' === typeof o[key]) {
-                o[key] = o[key](Object.assign({ object: o, key }, ctx));
-            } else if (Sequences.identifier === o[key]) {
-                o[key] = Sequences.nextVal(factoryName, key);
-            } else if (o[key] instanceof Reference) {
-                o[key] = o[key].build(Factory, { parent: o, key });
-            }
+        const object = {};
+        const context = Object.assign({ object }, ctx);
+        const factory = getFactory(factoryName);
+        Object.keys(factory).forEach((key) => {
+            context.key = key;
+            object[key] = factory[key](context);
         });
-        return o;
+        return object;
     },
 
 };

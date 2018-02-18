@@ -4,14 +4,19 @@ class Reference {
         this.name = name;
         this.count = count;
     }
+
     build(factory, ctx) {
+        const child = factory.build(this.name, ctx);
         if (1 === this.count) {
-            return factory.build(this.name, ctx);
+            return child;
+        } else {
+            const ary = [child];
+            ctx.parent[ctx.parentKey] = ary;
+            for(let i = 1; i < this.count; i += 1) {
+                ary[i] = factory.build(this.name, ctx);
+            }
+            return ary;
         }
-        return Array.from(
-            new Array(this.count),
-            () => factory.build(this.name, ctx),
-        );
     }
 
 }

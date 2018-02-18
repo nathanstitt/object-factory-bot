@@ -19,7 +19,6 @@ describe('Factory', () => {
 
     it('calls functions', () => {
         Factory.define('func').id(({ key }) => `${key}_test`);
-
         expect(Factory.build('func')).toEqual({ id: 'id_test' });
     });
 
@@ -37,10 +36,15 @@ describe('Factory', () => {
     it('builds references', () => {
         Factory.define('child')
             .one(1)
-            .ima(({ key }) => key)
+            .ima(({ parentKey }) => parentKey)
             .parent_id(({ parent }) => parent.id);
 
-        Factory.define('many').bar('baz');
+        Factory.define('many')
+            .bar('baz')
+            .same(({ parent, parentKey }) => {
+                return parent[parentKey] ? parent[parentKey][0].same : 'firstValue'
+            })
+
         Factory.define('parent')
             .id(Factory.sequence)
             .foo('bar')
@@ -51,7 +55,7 @@ describe('Factory', () => {
             id: 1,
             foo: 'bar',
             child: { one: 1, parent_id: 1, ima: 'child' },
-            ary: [{ bar: 'baz' }, { bar: 'baz' }],
+            ary: [{ bar: 'baz', same: 'firstValue' }, { bar: 'baz', same: 'firstValue' }],
         });
     });
 });
