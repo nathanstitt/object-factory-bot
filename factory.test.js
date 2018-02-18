@@ -41,9 +41,7 @@ describe('Factory', () => {
 
         Factory.define('many')
             .bar('baz')
-            .same(({ parent, parentKey }) =>
-                (parent[parentKey] ? parent[parentKey][0].same : 'firstValue')
-            );
+            .same(({ parent, parentKey }) => (parent[parentKey] ? parent[parentKey][0].same : 'firstValue'));
 
         Factory.define('parent')
             .id(Factory.sequence)
