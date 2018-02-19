@@ -41,6 +41,7 @@ describe('Factory', () => {
 
         Factory.define('many')
             .bar('baz')
+            .i(({ index }) => index)
             .same(({ parent, parentKey }) => (parent[parentKey] ? parent[parentKey][0].same : 'firstValue'));
 
         Factory.define('parent')
@@ -53,7 +54,7 @@ describe('Factory', () => {
             id: 1,
             foo: 'bar',
             child: { one: 1, parent_id: 1, ima: 'child' },
-            ary: [{ bar: 'baz', same: 'firstValue' }, { bar: 'baz', same: 'firstValue' }],
+            ary: [{ i: 0, bar: 'baz', same: 'firstValue' }, { i: 1, bar: 'baz', same: 'firstValue' }],
         });
     });
 });
