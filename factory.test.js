@@ -1,10 +1,12 @@
 /* global describe, afterEach, it, expect */
 const Sequences = require('./sequences');
 const Factory = require('./factory');
+const { FactoriesMap } = require('./factories');
 
 describe('Factory', () => {
     afterEach(() => {
         Sequences.map.clear();
+        FactoriesMap.clear();
     });
 
     it('copies values', () => {

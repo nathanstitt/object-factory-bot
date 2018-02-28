@@ -1,6 +1,6 @@
 const Sequences = require('./sequences');
 const Reference = require('./reference');
-const getFactory = require('./get-factory');
+const { getFactory } = require('./factories');
 const propertyFactory = require('./property-factory');
 
 const Factory = {
