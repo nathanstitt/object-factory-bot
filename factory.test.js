@@ -59,4 +59,25 @@ describe('Factory', () => {
             ary: [{ i: 0, bar: 'baz', same: 'firstValue' }, { i: 1, bar: 'baz', same: 'firstValue' }],
         });
     });
+
+    it('uses context values as defaults', () => {
+        Factory.define('child')
+            .value('from-factory');
+        Factory.define('parent')
+            .foo('bar')
+            .child(Factory.reference('child'));
+
+        expect(Factory.create('parent')).toEqual({ foo: 'bar', child: { value: 'from-factory' } });
+
+        expect(
+            Factory.create('parent', { child: { value: 'context-provided' } }),
+        ).toEqual({
+            foo: 'bar', child: { value: 'context-provided' },
+        });
+        expect(
+            Factory.create('parent', { foo: 'from-context', child: { value: 'context-provided' } }),
+        ).toEqual({
+            foo: 'from-context', child: { value: 'context-provided' },
+        });
+    });
 });

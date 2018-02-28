@@ -27,7 +27,11 @@ const Factory = {
         const factory = getFactory(factoryName);
         Object.keys(factory).forEach((key) => {
             context.key = key;
-            object[key] = factory[key](context);
+            if ('undefined' === typeof ctx[key]) {
+                object[key] = factory[key](context);
+            } else {
+                object[key] = ctx[key];
+            }
         });
         return object;
     },

@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/nathanstitt/object-factory-bot.svg?branch=master)](https://travis-ci.org/nathanstitt/object-factory-bot)
 
-
 Uses Proxy objects to create a DSL for object construction.  Requires Proxy support, which is supported by modern browsers and Node 6 and above.  https://caniuse.com/#search=Proxy http://node.green/#ES2015-built-ins-Proxy
 
 ```javascript
@@ -11,7 +10,7 @@ import { sample } from 'lodash';
 import faker from 'faker'; // https://github.com/marak/Faker.js
 
 Factory.define('manufacturer')
-    .name(() => sample(['Ford', 'GM', 'Tesla']))
+    .name(() => sample(['Ford', 'GM', 'Mercedes']))
 
 Factory.define('wheel')
     .diameter(Math.round(Math.random() * 6)+ 15)
@@ -23,7 +22,7 @@ Factory.define('car')
     .manufacturer(Factory.reference('manufacturer'))
     .wheels(Factory.reference('wheel', { count: 4 }));
 
-const car = Factory.create('car');
+const car = Factory.create('car', { owner: 'Jillian West', manufacturer: { name: 'Tesla' } });
 ```
 
 
@@ -48,4 +47,6 @@ const car = Factory.create('car');
 
 Both of the above seem to be fairly complex and oriented towards createing classes.
 
-For my purposes I just wanted a way to create plain objects
+For my purposes I just wanted a way to create plain objects.
+
+I also wanted the property name to appear first in the object specification so that it's easier to read.
