@@ -13,7 +13,9 @@ class Reference {
         }
         const ary = [child];
         ctx.parent[ctx.parentKey] = ary;
-        for (let i = 1; i < this.options.count; i += 1) {
+        const count = ('function' === typeof this.options.count) ? this.options.count(context) : this.options.count;
+
+        for (let i = 1; i < count; i += 1) {
             context.index = i;
             ary[i] = factory.create(this.name, context);
         }

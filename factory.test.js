@@ -50,7 +50,7 @@ describe('Factory', () => {
             .id(Factory.sequence)
             .foo('bar')
             .child(Factory.reference('child'))
-            .ary(Factory.reference('many', { count: 2 }));
+            .ary(Factory.reference('many', { count: () => 2 }));
 
         expect(Factory.create('parent')).toEqual({
             id: 1,
