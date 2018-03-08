@@ -9,13 +9,11 @@ const propertyFactory = (Factory, factoryName, proxy, target, propertyName) => (
         factory = () => Sequences.nextVal(factoryName, propertyName);
     } else if (providedValue instanceof Reference) {
         factory = context =>
-            providedValue.create(
-                Factory,
+            providedValue.create(Factory,
                 Object.assign(
                     context[propertyName] || {},
                     { parent: context.object, parentKey: propertyName },
-                ),
-            );
+                ));
     } else {
         factory = () => providedValue;
     }
