@@ -1,6 +1,6 @@
 {
   "name": "object-factory-bot",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "Building objects using proxies",
   "main": "factory.js",
   "repository": "https://github.com/nathanstitt/object-factory-bot",
