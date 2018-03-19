@@ -12,7 +12,7 @@ const propertyFactory = (Factory, factoryName, proxy, target, propertyName) => (
             providedValue.create(Factory,
                 Object.assign(
                     context[propertyName] || {},
-                    { parent: context.object, parentKey: propertyName },
+                    { parent: context, parentProperty: propertyName },
                 ));
     } else {
         factory = () => providedValue;

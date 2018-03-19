@@ -14,7 +14,7 @@ Factory.define('manufacturer')
 
 Factory.define('wheel')
     .diameter(Math.round(Math.random() * 6)+ 15)
-    .brand(({ parent, parentKey }) => parent[parentKey] ? parent[parentKey][0].brand : sample(['Firestone', 'Cooper', 'Bridgestone']));
+    .brand(({ siblings }) => siblings && siblings.length ? siblings[0].brand : sample(['Firestone', 'Cooper', 'Bridgestone']));
 
 Factory.define('car')
     .id(Factory.sequence)

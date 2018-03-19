@@ -38,21 +38,21 @@ describe('Factory', () => {
     it('creates references', () => {
         Factory.define('child')
             .one(1)
-            .ima(({ parentKey }) => parentKey)
-            .parent_id(({ parent }) => parent.id);
+            .ima(({ parentProperty }) => parentProperty)
+            .parent_id(({ parent }) => parent.object.id);
 
         Factory.define('many')
             .bar('baz')
             .i(({ index }) => index)
-            .same(({ parent, parentKey }) => (parent[parentKey] ? parent[parentKey][0].same : 'firstValue'));
+            .same(({ siblings }) => (siblings.length ? siblings[0].same : 'firstValue'));
 
         Factory.define('parent')
             .id(Factory.sequence)
             .foo('bar')
             .child(Factory.reference('child'))
-            .ary(Factory.reference('many', { count: () => 2 }));
+            .ary(Factory.reference('many', { count: ({ manyCount }) => manyCount }));
 
-        expect(Factory.create('parent')).toEqual({
+        expect(Factory.create('parent', { manyCount: 2 })).toEqual({
             id: 1,
             foo: 'bar',
             child: { one: 1, parent_id: 1, ima: 'child' },
