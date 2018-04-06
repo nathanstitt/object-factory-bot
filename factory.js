@@ -27,7 +27,7 @@ const Factory = {
         const factory = getFactory(factoryName);
         Object.keys(factory).forEach((key) => {
             context.key = key;
-            if ('undefined' === typeof ctx[key]) {
+            if (factory[key].isReference || 'undefined' === typeof ctx[key]) {
                 object[key] = factory[key](context);
             } else {
                 object[key] = ctx[key];

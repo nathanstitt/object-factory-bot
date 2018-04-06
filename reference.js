@@ -1,9 +1,20 @@
 class Reference {
 
+
+
     constructor(name, options = {}) {
         this.name = name;
         this.options = options;
         this.isSingle = null == this.options.count;
+    }
+
+    factory(factory, propertyName) {
+        const func = context => this.create(factory, Object.assign(
+            context[propertyName] || {},
+            { parent: context, parentProperty: propertyName },
+        ));
+        func.isReference = true;
+        return func;
     }
 
     create(factory, ctx) {
@@ -15,13 +26,9 @@ class Reference {
             index: 0,
             siblings: [],
         });
-
         context.siblings.push(factory.create(this.name, context));
-
         ctx.parent[ctx.parentKey] = context.siblings;
-
         const count = ('function' === typeof this.options.count) ? this.options.count(context.parent) : this.options.count;
-
         for (let i = 1; i < count; i += 1) {
             context.index = i;
             context.siblings[i] = factory.create(this.name, context);

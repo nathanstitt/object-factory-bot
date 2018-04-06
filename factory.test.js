@@ -62,22 +62,33 @@ describe('Factory', () => {
 
     it('uses context values as defaults', () => {
         Factory.define('child')
-            .value('from-factory');
+            .value('from-factory')
+            .otherValue('not-from-factory');
         Factory.define('parent')
             .foo('bar')
-            .child(Factory.reference('child'));
+            .child(Factory.reference('child'))
+            .children(Factory.reference('child', { count: 2 }));
 
-        expect(Factory.create('parent')).toEqual({ foo: 'bar', child: { value: 'from-factory' } });
-
-        expect(
-            Factory.create('parent', { child: { value: 'context-provided' } }),
-        ).toEqual({
-            foo: 'bar', child: { value: 'context-provided' },
+        expect(Factory.create('parent')).toEqual({
+            foo: 'bar',
+            children: [
+                { value: 'from-factory', otherValue: 'not-from-factory' },
+                { value: 'from-factory', otherValue: 'not-from-factory' },
+            ],
+            child: { value: 'from-factory', otherValue: 'not-from-factory' },
         });
         expect(
-            Factory.create('parent', { foo: 'from-context', child: { value: 'context-provided' } }),
+            Factory.create('parent', {
+                children: { value: 'context-provided' },
+                child: { value: 'context-provided' },
+            }),
         ).toEqual({
-            foo: 'from-context', child: { value: 'context-provided' },
+            foo: 'bar',
+            children: [
+                { value: 'context-provided', otherValue: 'not-from-factory' },
+                { value: 'context-provided', otherValue: 'not-from-factory' },
+            ],
+            child: { value: 'context-provided', otherValue: 'not-from-factory' },
         });
     });
 });

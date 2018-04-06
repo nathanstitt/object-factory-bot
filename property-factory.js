@@ -8,12 +8,7 @@ const propertyFactory = (Factory, factoryName, proxy, target, propertyName) => (
     } else if (Sequences.identifier === providedValue) {
         factory = () => Sequences.nextVal(factoryName, propertyName);
     } else if (providedValue instanceof Reference) {
-        factory = context =>
-            providedValue.create(Factory,
-                Object.assign(
-                    context[propertyName] || {},
-                    { parent: context, parentProperty: propertyName },
-                ));
+        factory = providedValue.factory(Factory, propertyName);
     } else {
         factory = () => providedValue;
     }
