@@ -1,7 +1,5 @@
 class Reference {
 
-
-
     constructor(name, options = {}) {
         this.name = name;
         this.options = options;
