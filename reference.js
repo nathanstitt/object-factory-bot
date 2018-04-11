@@ -22,12 +22,13 @@ class Reference {
                 index: 0,
                 siblings: [],
             });
+            context.parent[ctx.parentKey] = context.siblings;
         } else {
             context.index = index;
         }
         let { defaults } = this.options;
         if (defaults) {
-            if ('function' === typeof defaults) { defaults = defaults(context); }
+            if ('function' === typeof defaults) { defaults = defaults(context.parent); }
             Object.assign(context, defaults, context);
         }
         return context;
@@ -38,9 +39,7 @@ class Reference {
         if (this.isSingle) {
             return factory.create(this.name, context);
         }
-
         context.siblings.push(factory.create(this.name, context));
-        context.parent[ctx.parentKey] = context.siblings;
 
         let { count } = this.options;
         if ('function' === typeof count) { count = count(context.parent); }
