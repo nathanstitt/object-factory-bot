@@ -38,6 +38,9 @@ const car = Factory.create('car', { owner: 'Jillian West', manufacturer: { name:
          { diameter: 20, brand: 'Bridgestone' } ] }
 ```
 
+## References support options:
+ * *count*: can be either a function or number.  If not provided, the reference will be a single object.  If provided, the reference will be an array with _count_ elements.
+ * *defaults*: Also can be either a function or number.  The default values will override whatever is specified by the referenced child's property values, but will not override the context that is passed into the factory itself.
 
 ## See also:
 

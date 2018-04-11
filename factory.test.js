@@ -38,6 +38,7 @@ describe('Factory', () => {
     it('creates references', () => {
         Factory.define('child')
             .one(1)
+            .from_default('ignored')
             .ima(({ parentProperty }) => parentProperty)
             .parent_id(({ parent }) => parent.object.id);
 
@@ -49,13 +50,13 @@ describe('Factory', () => {
         Factory.define('parent')
             .id(Factory.sequence)
             .foo('bar')
-            .child(Factory.reference('child'))
+            .child(Factory.reference('child', { defaults: { from_default: 42 } }))
             .ary(Factory.reference('many', { count: ({ manyCount }) => manyCount }));
 
         expect(Factory.create('parent', { manyCount: 2 })).toEqual({
             id: 1,
             foo: 'bar',
-            child: { one: 1, parent_id: 1, ima: 'child' },
+            child: { one: 1, parent_id: 1, ima: 'child', from_default: 42 },
             ary: [{ i: 0, bar: 'baz', same: 'firstValue' }, { i: 1, bar: 'baz', same: 'firstValue' }],
         });
     });

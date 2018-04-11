@@ -15,20 +15,38 @@ class Reference {
         return func;
     }
 
-    create(factory, ctx) {
+    buildContext(ctx, index = 0) {
         const context = Object.assign({ }, ctx);
+        if (0 === index) {
+            Object.assign(context, {
+                index: 0,
+                siblings: [],
+            });
+        } else {
+            context.index = index;
+        }
+        let { defaults } = this.options;
+        if (defaults) {
+            if ('function' === typeof defaults) { defaults = defaults(context); }
+            Object.assign(context, defaults, context);
+        }
+        return context;
+    }
+
+    create(factory, ctx) {
+        let context = this.buildContext(ctx);
         if (this.isSingle) {
             return factory.create(this.name, context);
         }
-        Object.assign(context, {
-            index: 0,
-            siblings: [],
-        });
+
         context.siblings.push(factory.create(this.name, context));
-        ctx.parent[ctx.parentKey] = context.siblings;
-        const count = ('function' === typeof this.options.count) ? this.options.count(context.parent) : this.options.count;
+        context.parent[ctx.parentKey] = context.siblings;
+
+        let { count } = this.options;
+        if ('function' === typeof count) { count = count(context.parent); }
+
         for (let i = 1; i < count; i += 1) {
-            context.index = i;
+            context = this.buildContext(context, i);
             context.siblings[i] = factory.create(this.name, context);
         }
         return context.siblings;
