@@ -28,7 +28,7 @@ class Reference {
         }
         let { defaults } = this.options;
         if (defaults) {
-            if ('function' === typeof defaults) { defaults = defaults(context.parent); }
+            if ('function' === typeof defaults) { defaults = defaults(context.parent, index); }
             Object.assign(context, defaults, context);
         }
         return context;
