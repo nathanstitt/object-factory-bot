@@ -8,7 +8,9 @@ Uses Proxy objects to create a DSL for object construction.  Requires Proxy supp
 
 import { sample } from 'lodash';
 import faker from 'faker'; // https://github.com/marak/Faker.js
-
+Factory.defaults = { // counld also be a function
+  driver: 'Speedy',
+};
 Factory.define('manufacturer')
     .name(() => sample(['Ford', 'GM', 'Mercedes']))
 
@@ -17,8 +19,8 @@ Factory.define('wheel')
     .brand(({ siblings }) => siblings && siblings.length ? siblings[0].brand : sample(['Firestone', 'Cooper', 'Bridgestone']));
 
 Factory.define('car')
-    .id(Factory.sequence)
-    .owner(() => faker.name.findName())
+    .id(Factory.sequence) // driver is set in defaults
+    .owner(({ diver }) => driver || faker.name.findName())
     .manufacturer(Factory.reference('manufacturer'))
     .wheels(Factory.reference('wheel', { count: 4 }));
 

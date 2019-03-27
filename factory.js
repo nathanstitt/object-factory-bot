@@ -3,7 +3,18 @@ const Reference = require('./reference');
 const { getFactory } = require('./factories');
 const propertyFactory = require('./property-factory');
 
+let factoryDefaults = {};
+
+const getFactoryDefaults = (name, ctx) => (
+    'function' === typeof factoryDefaults ?
+        factoryDefaults(name, ctx) : factoryDefaults
+);
+
 const Factory = {
+
+    set defaults(d) {
+        factoryDefaults = d;
+    },
 
     get sequence() { return Sequences.identifier; },
 
@@ -23,7 +34,11 @@ const Factory = {
 
     create(factoryName, ctx = {}) {
         const object = {};
-        const context = Object.assign({ object }, ctx);
+        const context = Object.assign(
+            { object },
+            getFactoryDefaults(factoryName, ctx),
+            ctx,
+        );
         const factory = getFactory(factoryName);
         Object.keys(factory).forEach((key) => {
             context.key = key;

@@ -7,6 +7,13 @@ describe('Factory', () => {
     afterEach(() => {
         Sequences.map.clear();
         FactoriesMap.clear();
+        Factory.defaults = null;
+    });
+
+    it('sets global defaults', () => {
+        Factory.defaults = { one: 1 };
+        Factory.define('test').bar(({ one }) => one);
+        expect(Factory.create('test')).toEqual({ bar: 1 });
     });
 
     it('copies values', () => {
