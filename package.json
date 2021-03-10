@@ -5,6 +5,7 @@
   "repository": "https://github.com/nathanstitt/object-factory-bot",
   "author": "Nathan Stitt",
   "license": "MIT",
+  "typings": "dist/factory.d.ts",
   "main": "dist/object-factory-bot.js",
   "module": "dist/object-factory-bot.module.js",
   "exports": "./dist/object-factory-bot.modern.js",
