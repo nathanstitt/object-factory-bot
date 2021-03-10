@@ -1,5 +1,5 @@
 import { Sequences } from './sequences'
-import { Reference, ReferenceContext } from './reference'
+import { Reference, ReferenceOptions } from './reference'
 import { getFactory } from './factories'
 import { propertyFactory } from './property-factory'
 import { Factory as FactoryI } from './types'
@@ -10,7 +10,7 @@ export const Factory: FactoryI = {
 
     get sequence(): typeof Sequences['identifier'] { return Sequences.identifier },
 
-    reference(name: string, options: object): Reference {
+    reference(name: string, options: ReferenceOptions = {}): Reference {
         return new Reference(name, options)
     },
 
@@ -24,7 +24,7 @@ export const Factory: FactoryI = {
         return proxy
     },
 
-    create(factoryName: string, ctx: ReferenceContext = {}): Record<string, any> {
+    create(factoryName: string, ctx: Record<string, any> = {}): Record<string, any> {
         const object = {}
         const defaults = 'function' === typeof Factory.defaults ?
             Factory.defaults(factoryName, ctx) : Factory.defaults

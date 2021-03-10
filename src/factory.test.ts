@@ -12,7 +12,7 @@ describe('Factory', () => {
 
     it('sets global defaults', () => {
         Factory.defaults = { one: 1 }
-        Factory.define('test').bar(({ one }) => one)
+        Factory.define('test').bar(({ one }: any) => one)
         expect(Factory.create('test')).toEqual({ bar: 1 })
     })
 
@@ -27,7 +27,7 @@ describe('Factory', () => {
     })
 
     it('calls functions', () => {
-        Factory.define('func').id(({ key, size }) => `${key}_${size}_test`)
+        Factory.define('func').id(({ key, size }: { key: string, size: number }) => `${key}_${size}_test`)
         expect(Factory.create('func', { size: 8 })).toEqual({ id: 'id_8_test' })
     })
 
@@ -46,8 +46,8 @@ describe('Factory', () => {
         Factory.define('child')
             .one(1)
             .from_default('ignored')
-            .ima(({ parentProperty }) => parentProperty)
-            .parent_id(({ parent }) => parent.object.id)
+            .ima(({ parentProperty }: any) => parentProperty)
+            .parent_id(({ parent }: any) => parent.object.id)
 
         Factory.define('many')
             .bar('baz')
@@ -58,7 +58,7 @@ describe('Factory', () => {
             .id(Factory.sequence)
             .foo('bar')
             .child(Factory.reference('child', { defaults: { from_default: 42 } }))
-            .ary(Factory.reference('many', { count: ({ manyCount }) => manyCount }))
+            .ary(Factory.reference('many', { count: ({ manyCount }: any) => manyCount }))
 
         expect(Factory.create('parent', { manyCount: 2 })).toEqual({
             id: 1,

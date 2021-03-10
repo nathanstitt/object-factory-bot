@@ -10,6 +10,7 @@ export interface ReferenceContext {
     siblings?: object[],
     parentKey?: string,
     index?: number,
+    [key: string]: any,
 }
 
 export class Reference {
@@ -17,7 +18,7 @@ export class Reference {
     name: string
     options: ReferenceOptions
     isSingle: boolean
-    constructor(name: string, options = {}) {
+    constructor(name: string, options: ReferenceOptions = {}) {
         this.name = name;
         this.options = options;
         this.isSingle = null == this.options.count;
