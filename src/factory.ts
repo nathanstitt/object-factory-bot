@@ -1,14 +1,14 @@
-import { Sequences } from './sequences'
+import { IDENTIFIER as sequence } from './sequences'
 import { Reference, ReferenceOptions } from './reference'
 import { getFactory } from './factories'
 import { propertyFactory } from './property-factory'
 import { Factory as FactoryI } from './types'
 
-export const Factory: FactoryI = {
+const Factory: FactoryI = {
 
     defaults: Object.create(null),
 
-    get sequence(): typeof Sequences['identifier'] { return Sequences.identifier },
+    sequence,
 
     reference(name: string, options: ReferenceOptions = {}): Reference {
         return new Reference(name, options)
@@ -41,3 +41,5 @@ export const Factory: FactoryI = {
         return object
     },
 }
+
+export default Factory

@@ -9,7 +9,7 @@
   "module": "dist/object-factory-bot.module.js",
   "exports": "./dist/object-factory-bot.modern.js",
   "unpkg": "dist/object-factory-bot.umd.js",
-  "source": "src/index.ts",
+  "source": "src/factory.ts",
   "engines": {
     "node": ">=10"
   },

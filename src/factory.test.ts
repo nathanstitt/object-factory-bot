@@ -1,6 +1,6 @@
 /* global describe, afterEach, it, expect */
 import { Sequences } from './sequences'
-import { Factory } from './factory'
+import Factory from './factory'
 import { FactoriesMap } from './factories'
 
 describe('Factory', () => {
