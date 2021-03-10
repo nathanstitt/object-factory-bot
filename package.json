@@ -1,10 +1,9 @@
 {
   "name": "object-factory-bot",
-  "version": "0.6.1",
+  "version": "v0.7.0",
   "description": "Building objects using proxies",
   "repository": "https://github.com/nathanstitt/object-factory-bot",
   "author": "Nathan Stitt",
-  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/object-factory-bot.js",
   "module": "dist/object-factory-bot.module.js",
@@ -55,7 +54,5 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
