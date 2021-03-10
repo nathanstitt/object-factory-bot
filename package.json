@@ -2,16 +2,60 @@
   "name": "object-factory-bot",
   "version": "0.6.1",
   "description": "Building objects using proxies",
-  "main": "factory.js",
   "repository": "https://github.com/nathanstitt/object-factory-bot",
   "author": "Nathan Stitt",
+  "version": "0.0.1",
   "license": "MIT",
-  "private": false,
-  "devDependencies": {
-    "eslint-config-argosity": "^1.6.0",
-    "jest": "^22.3.0"
+  "main": "dist/object-factory-bot.js",
+  "module": "dist/object-factory-bot.module.js",
+  "exports": "./dist/object-factory-bot.modern.js",
+  "unpkg": "dist/object-factory-bot.umd.js",
+  "source": "src/index.ts",
+  "engines": {
+    "node": ">=10"
   },
   "scripts": {
-    "test": "$(npm bin)/jest"
+    "build": "microbundle --no-compress",
+    "build:tsc": "tsc",
+    "build:tsc:watch": "tsc --watch",
+    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "test:unit": "jest",
+    "test": "run-s test:unit lint test:build",
+    "test:build": "run-s build",
+    "lint": "eslint src/*ts"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-decorators": "^7.13.5",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.33",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "babel-jest": "^26.6.3",
+    "cross-env": "^7.0.3",
+    "eslint": "7.21.0",
+    "eslint-config-argosity": "3.1.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.3.1",
+    "jest": "^26.6.3",
+    "microbundle": "^0.13.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+
   }
 }

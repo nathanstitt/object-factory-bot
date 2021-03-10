@@ -1,0 +1,17 @@
+name: CI checks
+
+on:
+  push:
+
+jobs:
+  checks:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - name: Lint
+        run: yarn run lint
+      - name: Run Tests
+        run: yarn run test:unit
+      - name: Build TS
+        run: yarn run build:tsc --noEmit
