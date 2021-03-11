@@ -99,4 +99,10 @@ describe('Factory', () => {
             child: { value: 'context-provided', otherValue: 'not-from-factory' },
         })
     })
+
+    it('raise error when factory is unknown', () => {
+        expect(() => {
+            Factory.create('A BAD NAME')
+        }).toThrow('factory "A BAD NAME" has not been created')
+    })
 })

@@ -29,7 +29,7 @@ const Factory: FactoryI = {
         const defaults = 'function' === typeof Factory.defaults ?
             Factory.defaults(factoryName, ctx) : Factory.defaults
         const context = Object.assign({ object }, defaults, ctx)
-        const factory = getFactory(factoryName)
+        const factory = getFactory(factoryName, false)
         Object.keys(factory).forEach((key) => {
             context.key = key
             if (factory[key].isReference || 'undefined' === typeof ctx[key]) {
