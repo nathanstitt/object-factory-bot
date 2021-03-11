@@ -1,6 +1,6 @@
 {
   "name": "object-factory-bot",
-  "version": "0.7.4",
+  "version": "0.8.0",
   "description": "Building objects using proxies",
   "repository": "https://github.com/nathanstitt/object-factory-bot",
   "author": "Nathan Stitt",
