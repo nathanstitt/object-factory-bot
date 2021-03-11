@@ -8,7 +8,10 @@
   "typings": "dist/factory.d.ts",
   "main": "dist/object-factory-bot.js",
   "module": "dist/object-factory-bot.module.js",
-  "exports": "./dist/object-factory-bot.modern.js",
+  "exports": {
+    "import": "./dist/object-factory-bot.modern.js",
+    "require": "./dist/object-factory-bot.js"
+  },
   "unpkg": "dist/object-factory-bot.umd.js",
   "source": "src/factory.ts",
   "engines": {
