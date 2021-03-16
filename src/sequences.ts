@@ -3,6 +3,10 @@ export const IDENTIFIER = Symbol('sequence')
 
 export const Sequences = {
 
+    clear() {
+        SEQUENCES.clear()
+    },
+
     get map(): Map<string, Record<string, number>> {
         return SEQUENCES
     },

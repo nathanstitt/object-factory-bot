@@ -1,4 +1,4 @@
-import { IDENTIFIER as sequence } from './sequences'
+import { IDENTIFIER as sequence, Sequences } from './sequences'
 import { Reference, ReferenceOptions } from './reference'
 import { getFactory } from './factories'
 import { propertyFactory } from './property-factory'
@@ -9,6 +9,10 @@ const Factory: FactoryI = {
     defaults: Object.create(null),
 
     sequence,
+
+    resetSequences(): void {
+        Sequences.clear()
+    },
 
     reference(name: string, options: ReferenceOptions = {}): Reference {
         return new Reference(name, options)
