@@ -66,6 +66,10 @@ describe('Factory', () => {
             child: { one: 1, parent_id: 1, ima: 'child', from_default: 42 },
             ary: [{ i: 0, bar: 'baz', same: 'firstValue' }, { i: 1, bar: 'baz', same: 'firstValue' }],
         })
+
+        expect(Factory.create('parent', { manyCount: 0 })).toMatchObject({
+            ary: [],
+        })
     })
 
     it('uses context values as defaults', () => {

@@ -10,8 +10,8 @@ export interface ReferenceContext {
     siblings?: object[],
     parentKey?: string,
     index?: number,
-    [key: string]: any,
 }
+
 
 export class Reference {
 
@@ -61,14 +61,14 @@ export class Reference {
         if (this.isSingle) {
             return factory.create(this.name, context);
         }
-        (context.siblings as any).push(factory.create(this.name, context));
-
         let { count } = this.options;
         if ('function' === typeof count) { count = count(context.parent as any); }
-
-        for (let i = 1; i < (count as number); i += 1) {
-            context = this.buildContext(context, i);
-            (context.siblings as any)[i] = factory.create(this.name, context);
+        if (count != null && count > 0) {
+            (context.siblings as any).push(factory.create(this.name, context));
+            for (let i = 1; i < (count as number); i += 1) {
+                context = this.buildContext(context, i);
+                (context.siblings as any)[i] = factory.create(this.name, context);
+            }
         }
         return context.siblings;
     }
