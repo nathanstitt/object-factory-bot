@@ -1,6 +1,6 @@
 ## A simple object factory
 
-[![Build Status](https://travis-ci.org/nathanstitt/object-factory-bot.svg?branch=master)](https://travis-ci.org/nathanstitt/object-factory-bot)
+![Build Status](https://github.com/nathanstitt/object-factory-bot/actions/workflows/checks.yml/badge.svg)
 
 Uses Proxy objects to create a DSL for object construction.  Requires Proxy support, which is supported by modern browsers and Node 6 and above.  https://caniuse.com/#search=Proxy http://node.green/#ES2015-built-ins-Proxy
 
