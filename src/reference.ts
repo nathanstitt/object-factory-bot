@@ -25,7 +25,7 @@ export class Reference {
     }
 
     factory(factory: Factory, propertyName: string): any {
-        const func = (context: object) => this.create(factory, Object.assign(
+        const func = (context: Record<string, any>) => this.create(factory, Object.assign(
             context[propertyName] || {},
             { parent: context, parentProperty: propertyName },
         ));

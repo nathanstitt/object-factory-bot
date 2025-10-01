@@ -2,16 +2,31 @@ name: CI checks
 
 on:
   push:
+  pull_request:
 
 jobs:
   checks:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Lint
         run: yarn run lint
+
       - name: Run Tests
         run: yarn run test:unit
+
       - name: Build TS
         run: yarn run build:tsc --noEmit
+
+      - name: Build
+        run: yarn run build

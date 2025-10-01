@@ -6,3 +6,5 @@ npm-debug.log
 /dist
 /test-failed-*.png
 /output
+/coverage
+*.log
